@@ -12,9 +12,9 @@
 
 🚀 **[Try it online → https://43984927.github.io/CodeBeats/](https://43984927.github.io/CodeBeats/)**
 
-Transform your source code into music. Every function becomes a melody, every loop creates a rhythm, and every conditional triggers a chord change.
+Transform your source code into music. Every function becomes a melody, every loop creates a rhythm, and every conditional triggers a chord change. Who knew that `for` loop could drop such a sick beat? 🤯
 
-将你的源代码转化为音乐。每个函数变成一段旋律，每个循环创造一种节奏，每个条件判断触发一次和弦变化。
+将你的源代码转化为音乐。每个函数变成一段旋律，每个循环创造一种节奏，每个条件判断触发一次和弦变化。谁说程序员只会敲代码？一起来听听程序猿的music吧 🐒🎸
 
 [English](#english) | [中文](#中文)
 
