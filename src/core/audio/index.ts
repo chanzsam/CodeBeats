@@ -36,23 +36,23 @@ class Synthesizer {
     switch (instrument) {
       case 'GrandPiano':
         synth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: 'triangle' as const, partials: [1, 0.6, 0.3, 0.15, 0.08] },
-          envelope: { attack: 0.008, decay: 0.8, sustain: 0.35, release: 2.5 },
-          volume: -6,
+          oscillator: { type: 'fatsawtooth' as const, count: 3, spread: 10, partials: [1, 0.5, 0.25, 0.12, 0.06, 0.03] },
+          envelope: { attack: 0.005, decay: 1.2, sustain: 0.25, release: 3.0 },
+          volume: -8,
         })
         break
       case 'GrandPianoBass':
         synth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: 'triangle' as const, partials: [1, 0.4, 0.15] },
-          envelope: { attack: 0.01, decay: 1.0, sustain: 0.3, release: 2.0 },
-          volume: -8,
+          oscillator: { type: 'fattriangle' as const, count: 2, spread: 5, partials: [1, 0.35, 0.12, 0.05] },
+          envelope: { attack: 0.008, decay: 1.5, sustain: 0.2, release: 2.5 },
+          volume: -10,
         })
         break
       case 'GrandPianoPad':
         synth = new Tone.PolySynth(Tone.Synth, {
-          oscillator: { type: 'sine' as const, partials: [1, 0.5, 0.2, 0.1] },
-          envelope: { attack: 0.15, decay: 0.6, sustain: 0.5, release: 3.0 },
-          volume: -10,
+          oscillator: { type: 'fatsine' as const, count: 2, spread: 8, partials: [1, 0.4, 0.15, 0.06] },
+          envelope: { attack: 0.2, decay: 0.8, sustain: 0.4, release: 4.0 },
+          volume: -12,
         })
         break
       case 'SoftMallet':
@@ -139,12 +139,19 @@ class Synthesizer {
     }
 
     const isGrandPiano = instrument.startsWith('GrandPiano') || instrument === 'SoftMallet'
-    const reverbDecay = isGrandPiano ? 4 : 2
-    const reverbWet = isGrandPiano ? 0.55 : 0.3
+    const reverbDecay = isGrandPiano ? 5 : 2
+    const reverbWet = isGrandPiano ? 0.6 : 0.3
     const reverb = new Tone.Reverb({ decay: reverbDecay, wet: reverbWet })
-    const gain = new Tone.Gain(isGrandPiano ? 0.7 : 0.5)
+    const gainValue = isGrandPiano ? 0.8 : 0.5
+    const gain = new Tone.Gain(gainValue)
 
-    synth.chain(gain, reverb, Tone.Destination)
+    if (isGrandPiano) {
+      const delay = new Tone.FeedbackDelay({ delayTime: '8n', feedback: 0.15, wet: 0.2 })
+      synth.chain(gain, delay, reverb, Tone.Destination)
+      this.effects.set(`${instrument}-delay`, delay)
+    } else {
+      synth.chain(gain, reverb, Tone.Destination)
+    }
 
     this.synths.set(instrument, synth)
     this.effects.set(`${instrument}-reverb`, reverb)

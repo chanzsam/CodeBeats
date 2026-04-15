@@ -143,35 +143,74 @@ function mapFunction(element: CodeElement, config: ConfigType, style: MusicStyle
   const isAsync = element.properties?.async
   const isExported = element.properties?.exported
 
-  const melodyLength = Math.max(6, Math.min(12, (element.name?.length || 4) * 2))
-  const durations = ['16n', '8n', '16n', '8n', '16n', '4n', '16n', '8n', '16n', '8n', '16n', '2n']
+  if (style === 'piano') {
+    const melodyLength = Math.max(8, Math.min(16, (element.name?.length || 4) * 2))
+    const pianoDurations = ['4n', '8n', '8n', '4n', '8n', '8n', '2n', '4n', '8n', '8n', '4n', '8n', '8n', '2n', '4n', '1n']
+    const pianoIntervals = [0, 2, 4, 5, 4, 2, 0, -1, 0, 2, 4, 7, 5, 4, 2, 0]
 
-  for (let i = 0; i < melodyLength; i++) {
-    const degree = (nameSeed + i * (i % 2 === 0 ? 2 : 3)) % 7
-    const pitch = getScaleNote(config.scale, root, degree, baseOctave)
-    const duration = durations[i % durations.length]
-    const velocity = isExported
-      ? (i === 0 ? 1.0 : 0.8)
-      : (i === 0 ? 0.9 : 0.65 + (i % 3) * 0.05)
+    for (let i = 0; i < melodyLength; i++) {
+      const interval = pianoIntervals[i % pianoIntervals.length]
+      const degree = ((nameSeed + interval) % 7 + 7) % 7
+      const octaveShift = interval < 0 ? -1 : (interval > 5 ? 1 : 0)
+      const pitch = getScaleNote(config.scale, root, degree, baseOctave + octaveShift)
+      const duration = pianoDurations[i % pianoDurations.length]
+      const velocity = i === 0 ? 0.85
+        : i === melodyLength - 1 ? 0.9
+        : 0.55 + (i % 3 === 0 ? 0.15 : 0)
 
-    notes.push({
-      pitch,
-      duration,
-      velocity,
-      time: startTime + i * 0.125,
-      instrument: styleCfg.defaultInstrument,
-      effect: isAsync ? 'delay' : undefined,
-    })
-
-    if (i % 4 === 3 && i < melodyLength - 1) {
-      const passingDegree = (nameSeed + i * 2 + 1) % 7
       notes.push({
-        pitch: getScaleNote(config.scale, root, passingDegree, baseOctave),
-        duration: '32n',
-        velocity: 0.45,
-        time: startTime + i * 0.125 + 0.0625,
+        pitch,
+        duration,
+        velocity,
+        time: startTime + i * 0.25,
         instrument: styleCfg.defaultInstrument,
+        effect: isAsync ? 'delay' : undefined,
       })
+
+      if (i % 4 === 3 && i < melodyLength - 1) {
+        const chordDeg = [0, 2, 4]
+        for (const d of chordDeg) {
+          notes.push({
+            pitch: getScaleNote(config.scale, root, (nameSeed + d) % 7, baseOctave - 1),
+            duration: '2n',
+            velocity: 0.25,
+            time: startTime + i * 0.25,
+            instrument: styleCfg.padInstrument,
+          })
+        }
+      }
+    }
+  } else {
+    const melodyLength = Math.max(6, Math.min(12, (element.name?.length || 4) * 2))
+    const durations = ['16n', '8n', '16n', '8n', '16n', '4n', '16n', '8n', '16n', '8n', '16n', '2n']
+
+    for (let i = 0; i < melodyLength; i++) {
+      const degree = (nameSeed + i * (i % 2 === 0 ? 2 : 3)) % 7
+      const pitch = getScaleNote(config.scale, root, degree, baseOctave)
+      const duration = durations[i % durations.length]
+      const velocity = isExported
+        ? (i === 0 ? 1.0 : 0.8)
+        : (i === 0 ? 0.9 : 0.65 + (i % 3) * 0.05)
+
+      notes.push({
+        pitch,
+        duration,
+        velocity,
+        time: startTime + i * 0.125,
+        instrument: styleCfg.defaultInstrument,
+        effect: isAsync ? 'delay' : undefined,
+      })
+
+      if (i % 4 === 3 && i < melodyLength - 1) {
+        const passingDegree = (nameSeed + i * 2 + 1) % 7
+        notes.push({
+          pitch: getScaleNote(config.scale, root, passingDegree, baseOctave),
+          duration: '32n',
+          velocity: 0.45,
+          time: startTime + i * 0.125 + 0.0625,
+          instrument: styleCfg.defaultInstrument,
+        })
+      }
     }
   }
 
@@ -183,68 +222,118 @@ function mapLoop(element: CodeElement, config: ConfigType, style: MusicStyle, st
   const root = KEY_MAP[config.key]
   const notes: MusicalNote[] = []
 
-  const beats = 8
   const isNested = element.depth > 1
 
-  for (let i = 0; i < beats; i++) {
-    const time = startTime + i * 0.125
+  if (style === 'piano') {
+    const arpeggioPatterns = [
+      [0, 2, 4, 7, 4, 2],
+      [0, 3, 5, 7, 5, 3],
+      [0, 1, 4, 6, 4, 1],
+    ]
+    const pattern = arpeggioPatterns[nameToSeed(element.name || 'loop') % arpeggioPatterns.length]
+    const repeats = isNested ? 3 : 2
 
-    notes.push({
-      pitch: getScaleNote(config.scale, root, 0, 2),
-      duration: '16n',
-      velocity: i === 0 || i === 4 ? 0.95 : 0.6,
-      time,
-      instrument: styleCfg.drumInstrument,
-    })
+    for (let r = 0; r < repeats; r++) {
+      for (let i = 0; i < pattern.length; i++) {
+        const degree = pattern[i]
+        const octave = degree >= 5 ? 5 : 4
+        const pitch = getScaleNote(config.scale, root, degree % 7, octave)
+        const time = startTime + (r * pattern.length + i) * 0.2
+        const velocity = i === 0 ? 0.75 : (i === pattern.length - 1 ? 0.65 : 0.5)
 
-    if (i % 2 === 0) {
-      notes.push({
-        pitch: getScaleNote(config.scale, root, 2, 3),
-        duration: '8n',
-        velocity: 0.5,
-        time: time + 0.0625,
-        instrument: styleCfg.drumInstrument,
-      })
-    }
-
-    if (i % 2 === 1) {
-      notes.push({
-        pitch: getScaleNote(config.scale, root, 5, 4),
-        duration: '16n',
-        velocity: 0.55,
-        time: time + 0.03125,
-        instrument: styleCfg.drumInstrument,
-      })
-    }
-
-    if (isNested) {
-      notes.push({
-        pitch: getScaleNote(config.scale, root, 4, 4),
-        duration: '16n',
-        velocity: 0.7,
-        time: time + 0.0625,
-        instrument: styleCfg.drumInstrument,
-      })
-
-      if (i % 4 === 2) {
         notes.push({
-          pitch: getScaleNote(config.scale, root, 6, 3),
-          duration: '8n',
-          velocity: 0.8,
+          pitch,
+          duration: i === 0 ? '4n' : '8n',
+          velocity,
           time,
-          instrument: styleCfg.drumInstrument,
+          instrument: styleCfg.defaultInstrument,
         })
       }
     }
 
-    if (i === 6) {
+    notes.push({
+      pitch: getScaleNote(config.scale, root, 0, 3),
+      duration: '2n',
+      velocity: 0.5,
+      time: startTime,
+      instrument: styleCfg.bassInstrument,
+    })
+
+    if (isNested) {
+      const chordDegs = [0, 2, 4]
+      for (const d of chordDegs) {
+        notes.push({
+          pitch: getScaleNote(config.scale, root, d, 3),
+          duration: '1n',
+          velocity: 0.2,
+          time: startTime,
+          instrument: styleCfg.padInstrument,
+        })
+      }
+    }
+  } else {
+    const beats = 8
+
+    for (let i = 0; i < beats; i++) {
+      const time = startTime + i * 0.125
+
       notes.push({
-        pitch: getScaleNote(config.scale, root, 1, 2),
-        duration: '4n',
-        velocity: 0.85,
+        pitch: getScaleNote(config.scale, root, 0, 2),
+        duration: '16n',
+        velocity: i === 0 || i === 4 ? 0.95 : 0.6,
         time,
-        instrument: styleCfg.bassInstrument,
+        instrument: styleCfg.drumInstrument,
       })
+
+      if (i % 2 === 0) {
+        notes.push({
+          pitch: getScaleNote(config.scale, root, 2, 3),
+          duration: '8n',
+          velocity: 0.5,
+          time: time + 0.0625,
+          instrument: styleCfg.drumInstrument,
+        })
+      }
+
+      if (i % 2 === 1) {
+        notes.push({
+          pitch: getScaleNote(config.scale, root, 5, 4),
+          duration: '16n',
+          velocity: 0.55,
+          time: time + 0.03125,
+          instrument: styleCfg.drumInstrument,
+        })
+      }
+
+      if (isNested) {
+        notes.push({
+          pitch: getScaleNote(config.scale, root, 4, 4),
+          duration: '16n',
+          velocity: 0.7,
+          time: time + 0.0625,
+          instrument: styleCfg.drumInstrument,
+        })
+
+        if (i % 4 === 2) {
+          notes.push({
+            pitch: getScaleNote(config.scale, root, 6, 3),
+            duration: '8n',
+            velocity: 0.8,
+            time,
+            instrument: styleCfg.drumInstrument,
+          })
+        }
+      }
+
+      if (i === 6) {
+        notes.push({
+          pitch: getScaleNote(config.scale, root, 1, 2),
+          duration: '4n',
+          velocity: 0.85,
+          time,
+          instrument: styleCfg.bassInstrument,
+        })
+      }
     }
   }
 
@@ -257,41 +346,67 @@ function mapConditional(element: CodeElement, config: ReturnType<typeof selectKe
   const notes: MusicalNote[] = []
 
   const isElse = element.name === 'else' || element.name === 'elif'
-  const chordDegrees = isElse ? [0, 2, 4] : [0, 3, 5]
 
-  for (const deg of chordDegrees) {
-    const pitch = getScaleNote(config.scale, root, deg, 3)
+  if (style === 'piano') {
+    const chordDegrees = isElse ? [0, 2, 4] : [0, 3, 5]
+    for (let i = 0; i < chordDegrees.length; i++) {
+      const deg = chordDegrees[i]
+      notes.push({
+        pitch: getScaleNote(config.scale, root, deg, 3),
+        duration: '2n',
+        velocity: 0.45,
+        time: startTime + i * 0.15,
+        instrument: styleCfg.padInstrument,
+      })
+    }
+
+    const melodyDegrees = isElse ? [4, 5, 7, 5] : [1, 3, 5, 3]
+    for (let i = 0; i < melodyDegrees.length; i++) {
+      notes.push({
+        pitch: getScaleNote(config.scale, root, melodyDegrees[i] % 7, 5),
+        duration: i === melodyDegrees.length - 1 ? '4n' : '8n',
+        velocity: 0.6 + i * 0.05,
+        time: startTime + i * 0.2,
+        instrument: styleCfg.defaultInstrument,
+      })
+    }
+  } else {
+    const chordDegrees = isElse ? [0, 2, 4] : [0, 3, 5]
+
+    for (const deg of chordDegrees) {
+      const pitch = getScaleNote(config.scale, root, deg, 3)
+      notes.push({
+        pitch,
+        duration: '2n',
+        velocity: 0.6,
+        time: startTime,
+        instrument: styleCfg.padInstrument,
+      })
+    }
+
+    const melodyDegree = isElse ? 4 : 1
     notes.push({
-      pitch,
-      duration: '2n',
-      velocity: 0.6,
+      pitch: getScaleNote(config.scale, root, melodyDegree, 5),
+      duration: '8n',
+      velocity: 0.7,
       time: startTime,
-      instrument: styleCfg.padInstrument,
+      instrument: styleCfg.defaultInstrument,
+    })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, melodyDegree + 2, 5),
+      duration: '8n',
+      velocity: 0.6,
+      time: startTime + 0.125,
+      instrument: styleCfg.defaultInstrument,
+    })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, melodyDegree + 4, 5),
+      duration: '4n',
+      velocity: 0.75,
+      time: startTime + 0.25,
+      instrument: styleCfg.defaultInstrument,
     })
   }
-
-  const melodyDegree = isElse ? 4 : 1
-  notes.push({
-    pitch: getScaleNote(config.scale, root, melodyDegree, 5),
-    duration: '8n',
-    velocity: 0.7,
-    time: startTime,
-    instrument: styleCfg.defaultInstrument,
-  })
-  notes.push({
-    pitch: getScaleNote(config.scale, root, melodyDegree + 2, 5),
-    duration: '8n',
-    velocity: 0.6,
-    time: startTime + 0.125,
-    instrument: styleCfg.defaultInstrument,
-  })
-  notes.push({
-    pitch: getScaleNote(config.scale, root, melodyDegree + 4, 5),
-    duration: '4n',
-    velocity: 0.75,
-    time: startTime + 0.25,
-    instrument: styleCfg.defaultInstrument,
-  })
 
   return notes
 }
@@ -302,31 +417,63 @@ function mapVariable(element: CodeElement, config: ReturnType<typeof selectKeyAn
   const notes: MusicalNote[] = []
 
   const nameSeed = element.name ? nameToSeed(element.name) % 5 : 0
-  const pitch = getScaleNote(config.scale, root, nameSeed, 2)
 
-  notes.push({
-    pitch,
-    duration: '4n',
-    velocity: 0.55,
-    time: startTime,
-    instrument: styleCfg.bassInstrument,
-  })
+  if (style === 'piano') {
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed, 3),
+      duration: '2n',
+      velocity: 0.45,
+      time: startTime,
+      instrument: styleCfg.bassInstrument,
+    })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed, 5),
+      duration: '4n',
+      velocity: 0.5,
+      time: startTime,
+      instrument: styleCfg.defaultInstrument,
+    })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed + 2, 5),
+      duration: '4n',
+      velocity: 0.45,
+      time: startTime + 0.25,
+      instrument: styleCfg.defaultInstrument,
+    })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed + 4, 5),
+      duration: '2n',
+      velocity: 0.55,
+      time: startTime + 0.5,
+      instrument: styleCfg.defaultInstrument,
+    })
+  } else {
+    const pitch = getScaleNote(config.scale, root, nameSeed, 2)
 
-  notes.push({
-    pitch: getScaleNote(config.scale, root, nameSeed + 2, 2),
-    duration: '8n',
-    velocity: 0.4,
-    time: startTime + 0.25,
-    instrument: styleCfg.bassInstrument,
-  })
+    notes.push({
+      pitch,
+      duration: '4n',
+      velocity: 0.55,
+      time: startTime,
+      instrument: styleCfg.bassInstrument,
+    })
 
-  notes.push({
-    pitch: getScaleNote(config.scale, root, nameSeed, 2),
-    duration: '8n',
-    velocity: 0.45,
-    time: startTime + 0.375,
-    instrument: styleCfg.bassInstrument,
-  })
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed + 2, 2),
+      duration: '8n',
+      velocity: 0.4,
+      time: startTime + 0.25,
+      instrument: styleCfg.bassInstrument,
+    })
+
+    notes.push({
+      pitch: getScaleNote(config.scale, root, nameSeed, 2),
+      duration: '8n',
+      velocity: 0.45,
+      time: startTime + 0.375,
+      instrument: styleCfg.bassInstrument,
+    })
+  }
 
   return notes
 }
@@ -510,10 +657,15 @@ export function mapCodeToMusic(parseResult: ParseResult, style: MusicStyle = 'el
 
     if (notes.length > 0) {
       const maxNoteTime = Math.max(...notes.map(n => n.time))
-      const gap = element.type === 'comment' ? beatDuration * 0.15 : beatDuration * 0.3
+      let gap: number
+      if (style === 'piano') {
+        gap = element.type === 'comment' ? beatDuration * 0.2 : beatDuration * 0.5
+      } else {
+        gap = element.type === 'comment' ? beatDuration * 0.15 : beatDuration * 0.3
+      }
       currentTime = maxNoteTime + gap
     } else {
-      currentTime += beatDuration * 0.15
+      currentTime += style === 'piano' ? beatDuration * 0.2 : beatDuration * 0.15
     }
   }
 
