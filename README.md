@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🎵 CodeBeats
+# 🎵 CodeBeats 代码节拍
 
-**Hear What Your Code Sounds Like / 听听你的代码什么声音**
+**听听你的代码什么声音 / Hear What Your Code Sounds Like**
 
 [![GitHub Stars](https://img.shields.io/github/stars/43984927/CodeBeats?style=social)](https://github.com/43984927/CodeBeats)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -10,190 +10,19 @@
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
 [![GitHub Pages](https://img.shields.io/badge/Demo-Live%20Online-success.svg)](https://43984927.github.io/CodeBeats/)
 
-🚀 **[Try it online → https://43984927.github.io/CodeBeats/](https://43984927.github.io/CodeBeats/)**
-
-Transform your source code into music. Every function becomes a melody, every loop creates a rhythm, and every conditional triggers a chord change. Who knew that `for` loop could drop such a sick beat? 🤯
+🚀 **[在线体验 → https://43984927.github.io/CodeBeats/](https://43984927.github.io/CodeBeats/)**
 
 将你的源代码转化为音乐。每个函数变成一段旋律，每个循环创造一种节奏，每个条件判断触发一次和弦变化。谁说程序员只会敲代码？一起来听听程序猿的music吧 🐒🎸
 
-[English](#english) | [中文](#中文)
+Transform your source code into music. Every function becomes a melody, every loop creates a rhythm, and every conditional triggers a chord change. Who knew that `for` loop could drop such a sick beat? 🤯
+
+[中文](#中文) | [English](#english)
 
 ---
 
 <img src="public/banner.svg" alt="CodeBeats Banner" width="800"/>
 
 </div>
-
----
-
-<a id="english"></a>
-
-## 🇺🇸 English
-
-### ✨ Features
-
-#### 🎹 Code → Music Mapping Engine
-The core engine parses your source code into an AST (Abstract Syntax Tree), extracts structural elements, and maps each code construct to a unique musical element. Every piece of code generates a completely unique composition — no two codebases sound the same.
-
-- **Function → Melody**: Each function generates a distinct melody theme. The function name is hashed into a melody seed, so `calculateTotal()` and `sendEmail()` will produce completely different tunes. Async functions add a spatial delay effect, and exported functions play with higher velocity.
-- **Loop → Rhythm**: `for` and `while` loops create rhythmic drum patterns. Nested loops produce denser, more complex rhythms. The deeper the nesting, the more intense the beat.
-- **Conditional → Harmony**: `if` statements trigger bright major chords, while `else` branches shift to melancholic minor chords. `switch/case` statements create chord progressions that flow through different harmonic territories.
-- **Variable → Bass Line**: Variable assignments anchor the composition with a low bass foundation. The variable name determines the pitch — short names produce punchy bass, longer names create flowing bass lines.
-- **Import → Intro**: Import statements generate ascending arpeggios with lush reverb, creating an atmospheric opening — like the overture of your code's symphony.
-- **Comment → Ambient Pad**: Comments produce soft, sustained pad sounds with long reverb tails, adding atmospheric depth — the "breathing room" in your code's music.
-- **Return → Outro**: Return statements create descending note sequences with gradual fade-out, providing a natural musical conclusion to each function's melody.
-- **Try/Catch → Dissonance**: Error handling produces intentionally dissonant, distorted sounds — `catch` blocks create harsh, attention-grabbing textures that musically represent the "something went wrong" nature of exceptions.
-- **Class → Grand Chord**: Class definitions produce full, rich chords with pad instruments, representing the structural foundation of your code architecture.
-
-#### 🌈 6 Music Styles
-Each style completely changes the instrumentation, tempo, and feel of the generated music:
-
-| Style | BPM | Instruments | Vibe |
-|-------|-----|-------------|------|
-| 🎹 **Electronic** | 128 | Sawtooth synth, synth bass, electronic drums | Energetic, pulsing, club-ready |
-| 🎻 **Classical** | 90 | Piano, cello, timpani, strings | Elegant, refined, orchestral |
-| 🎷 **Jazz** | 110 | Piano, upright bass, brushes, vibraphone | Smooth, swinging, sophisticated |
-| 🌊 **Ambient** | 70 | Pad, sub-bass, percussion, atmosphere | Dreamy, spacious, meditative |
-| 👾 **Chiptune** | 140 | Square wave, triangle wave, noise | Retro 8-bit, nostalgic, playful |
-| ☕ **Lo-Fi** | 85 | Electric piano, bass, lo-fi drums, vinyl pad | Chill, warm, study-friendly |
-
-#### 📊 Real-time Visualization
-- **Spectrum Bars**: 64-bar frequency visualizer with gradient colors (indigo → pink for active sections)
-- **Particle Effects**: Musical notes float upward as particles during playback, with physics-based motion
-- **Waveform Animation**: Sine wave overlay that pulses with the music
-- **Section Highlighting**: Active code section is highlighted in the visualizer with glow effects
-- **Section Timeline**: Color-coded timeline showing the musical structure of your code
-
-#### 🔍 Code Analysis Dashboard
-The analysis panel provides real-time statistics about your code:
-- 🎵 **Functions** — Number of function definitions detected
-- 🏛️ **Classes** — Class/struct/interface definitions
-- 🔄 **Loops** — For/while loop constructs
-- 🔀 **Conditions** — If/else/switch conditionals
-- 📦 **Variables** — Variable declarations
-- 💬 **Comments** — Comment lines
-- 📏 **Depth** — Maximum nesting depth
-- 🔥 **Complexity** — Overall code complexity score
-
-The complexity score influences the musical key and scale selection — more complex code tends toward blues and dorian scales, while simpler code uses major and pentatonic scales.
-
-#### 🌐 Multi-Language Support
-Supports 5 programming languages with language-specific parsing rules:
-- **Python**: Detects `def`, `class`, `for...in`, `while`, `if/elif/else`, decorators, `try/except`
-- **JavaScript**: Detects `function`, arrow functions, `for/while`, `if/else`, `try/catch`, array methods
-- **TypeScript**: Same as JavaScript plus `interface`, `type`, and type annotations
-- **Rust**: Detects `fn`, `struct`, `enum`, `trait`, `impl`, `match`, `for/while loop`
-- **Go**: Detects `func`, `struct`, `interface`, `for`, `if/else`, `switch`, `defer`
-
-Each language also influences the musical key — Python defaults to D, JavaScript to E, Rust to C, Go to G.
-
-#### 🎵 Musical Intelligence
-- **Auto Key Selection**: The key is automatically chosen based on the programming language and code characteristics
-- **Auto Scale Selection**: Simple code → major/pentatonic, complex code → blues/dorian, many conditionals → minor
-- **Adaptive BPM**: Tempo adjusts based on code density and nesting depth — denser code plays faster
-- **Harmonic Constraints**: All notes are constrained to the selected scale, ensuring the music always sounds pleasant
-- **7 Scale Types**: Major, Minor, Pentatonic, Blues, Dorian, Mixolydian, Japanese
-
-#### 📤 One-click Share
-- **Web Share API**: On supported browsers, share directly to Twitter, Facebook, etc.
-- **Clipboard Copy**: Copy a formatted share text with your code's musical stats
-- **Share Card**: Includes the key, scale, BPM, and style of your code's music
-
-#### 🎯 Zero Backend Required
-The entire application runs in your browser — no server, no API keys, no data uploads. Your code never leaves your machine. Built with:
-- **Tone.js** for Web Audio API synthesis
-- **Canvas 2D** for real-time visualization
-- **Custom parser** for code analysis (no heavy AST dependencies)
-
-### 🎵 Complete Mapping Rules
-
-| Code Element | Music Element | Instrument | Detail |
-|-------------|---------------|------------|--------|
-| `function` | 🎵 Melody | Style-dependent | Name → melody seed (hash), async → delay, exported → louder, params → chord complexity |
-| `class` | 🏛️ Grand Chord | Pad + Lead | 4-note chord (7th) + high melody accent |
-| `for/while` | 🔄 Rhythm | Drums/Percussion | 4-beat pattern, kick + hi-hat, nested → extra accent on beat 3 |
-| `if/else` | 🔀 Harmony | Pad | if → major triad (I-III-V), else → minor triad (i-iii-v) |
-| `variable` | 📦 Bass | Bass instrument | Name hash → scale degree, depth → octave |
-| `import` | 📥 Intro Arpeggio | Pad + Reverb | 3-note ascending arpeggio, heavy reverb |
-| `comment` | 💬 Ambient Pad | Pad + Reverb | Sustained note, very soft, long reverb tail |
-| `return` | ↩️ Fade-out | Lead instrument | 3-note descending sequence, decreasing velocity |
-| `decorator` | ✨ Accent | Pad + Reverb | Same as import — arpeggiated accent |
-| `try/catch` | 🛡️ Dissonance | Lead + Distortion | try → stable note, catch → dissonant + distorted |
-| `assignment` | 📝 Note | Style-dependent | Generic note at current depth's octave |
-| `string/number` | 🔤🔢 Note | Style-dependent | Literal values mapped to scale degrees |
-
-### 🚀 Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/43984927/CodeBeats.git
-cd CodeBeats
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### 🎮 How to Use
-
-1. **Paste your code** in the editor (or click language buttons for sample code)
-2. **Choose a music style** — Electronic, Classical, Jazz, Ambient, Chiptune, or Lo-Fi
-3. **Click ▶ Play** — Hear your code transform into music
-4. **Watch the visualizer** — Spectrum bars and particles dance with the music
-5. **Click 🔍 Analyze** — See detailed code statistics
-6. **Click 📤 Share** — Share your code music with the world
-
-### 🏗️ Architecture
-
-```
-CodeBeats/
-├── src/
-│   ├── core/                    # Core Engine
-│   │   ├── parser/index.ts      # Code Parser (5 languages, regex-based AST)
-│   │   ├── mapper/index.ts      # Code → Music Mapper (7 scales, 6 styles)
-│   │   └── audio/index.ts       # Tone.js Synthesizer (10+ instruments)
-│   ├── components/
-│   │   └── Visualizer.tsx       # Canvas Audio Visualization (spectrum + particles)
-│   ├── pages/
-│   │   └── Home.tsx             # Main Page (editor + controls + info panels)
-│   └── App.tsx                  # Root Component
-├── package.json
-├── vite.config.ts
-└── tsconfig.json
-```
-
-### 🛠️ Tech Stack
-
-- **Frontend**: React 18 + TypeScript + Vite
-- **Audio**: Tone.js (Web Audio API)
-- **Visualization**: Canvas 2D
-- **Code Parsing**: Custom regex-based AST analyzer
-- **Deployment**: Vercel / GitHub Pages
-
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-### 👤 Author
-
-**chanzs** - [GitHub](https://github.com/chanzs)
 
 ---
 
@@ -216,11 +45,12 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 - **Try/Catch → 不和谐音**：错误处理产生故意的不和谐、失真声音——`catch` 块创造刺耳的、引人注目的音色，在音乐上表现异常的"出错了"本质。
 - **类 → 宏大和弦**：类定义产生完整、丰富的和弦，使用铺底乐器，代表代码架构的结构基础。
 
-#### 🌈 6种音乐风格
+#### 🌈 8种音乐风格
 每种风格完全改变生成音乐的乐器、速度和感觉：
 
 | 风格 | BPM | 乐器 | 氛围 |
 |------|-----|------|------|
+| 🎹 **钢琴（Piano）** | 72 | 三角钢琴、钢琴低音、软槌 | 纯净、优美、经典 |
 | 🎹 **电子（Electronic）** | 128 | 锯齿波合成器、合成贝斯、电子鼓 | 充满活力、脉动、适合俱乐部 |
 | 🎻 **古典（Classical）** | 90 | 钢琴、大提琴、定音鼓、弦乐 | 优雅、精致、管弦乐 |
 | 🎷 **爵士（Jazz）** | 110 | 钢琴、立式贝斯、鼓刷、颤音琴 | 流畅、摇摆、精致 |
@@ -249,14 +79,15 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 复杂度评分会影响调性和音阶选择——更复杂的代码倾向于蓝调和多利亚调式，而更简单的代码使用大调和五声音阶。
 
 #### 🌐 多语言支持
-支持5种编程语言，带有语言特定的解析规则：
+支持6种编程语言，带有语言特定的解析规则：
 - **Python**：检测 `def`、`class`、`for...in`、`while`、`if/elif/else`、装饰器、`try/except`
 - **JavaScript**：检测 `function`、箭头函数、`for/while`、`if/else`、`try/catch`、数组方法
 - **TypeScript**：同JavaScript，加上 `interface`、`type` 和类型注解
 - **Rust**：检测 `fn`、`struct`、`enum`、`trait`、`impl`、`match`、`for/while loop`
 - **Go**：检测 `func`、`struct`、`interface`、`for`、`if/else`、`switch`、`defer`
+- **C**：检测函数定义、`struct`、`enum`、`for/while`、`if/else`、`switch`、`#include`
 
-每种语言还会影响音乐调性——Python默认D调，JavaScript默认E调，Rust默认C调，Go默认G调。
+每种语言还会影响音乐调性——Python默认D调，JavaScript默认E调，Rust默认C调，Go默认G调，C默认A调。
 
 #### 🎵 音乐智能
 - **自动选调**：根据编程语言和代码特征自动选择调性
@@ -264,6 +95,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 - **自适应BPM**：速度根据代码密度和嵌套深度调整——越密集的代码播放越快
 - **和声约束**：所有音符限制在选定音阶内，确保音乐始终悦耳
 - **7种音阶类型**：大调、小调、五声、蓝调、多利亚、混合利底亚、日本音阶
+- **和弦进行引擎**：经典和弦进行（I-IV-V-I等），旋律跟随和弦走向，告别突兀
 
 #### 📤 一键分享
 - **Web Share API**：在支持的浏览器上，直接分享到Twitter、Facebook等
@@ -315,7 +147,7 @@ npm run build
 ### 🎮 使用方法
 
 1. **粘贴代码** — 在编辑器中粘贴你的代码（或点击语言按钮加载示例）
-2. **选择音乐风格** — 电子、古典、爵士、氛围、芯片音乐或Lo-Fi
+2. **选择音乐风格** — 钢琴、电子、古典、爵士、氛围、芯片音乐或Lo-Fi
 3. **点击 ▶ Play** — 听你的代码变成音乐
 4. **观看可视化** — 频谱柱状图和粒子随音乐舞动
 5. **点击 🔍 Analyze** — 查看详细的代码统计
@@ -327,8 +159,8 @@ npm run build
 CodeBeats/
 ├── src/
 │   ├── core/                    # 核心引擎
-│   │   ├── parser/index.ts      # 代码解析器（5种语言，正则表达式AST）
-│   │   ├── mapper/index.ts      # 代码→音乐映射器（7种音阶，6种风格）
+│   │   ├── parser/index.ts      # 代码解析器（6种语言，正则表达式AST）
+│   │   ├── mapper/index.ts      # 代码→音乐映射器（7种音阶，8种风格，和弦进行引擎）
 │   │   └── audio/index.ts       # Tone.js 音频合成器（10+乐器）
 │   ├── components/
 │   │   └── Visualizer.tsx       # Canvas 音频可视化（频谱+粒子）
@@ -363,6 +195,180 @@ CodeBeats/
 本项目基于 MIT 许可证开源 — 详见 [LICENSE](LICENSE) 文件。
 
 ### 👤 作者
+
+**chanzs** - [GitHub](https://github.com/chanzs)
+
+---
+
+<a id="english"></a>
+
+## 🇺🇸 English
+
+### ✨ Features
+
+#### 🎹 Code → Music Mapping Engine
+The core engine parses your source code into an AST (Abstract Syntax Tree), extracts structural elements, and maps each code construct to a unique musical element. Every piece of code generates a completely unique composition — no two codebases sound the same.
+
+- **Function → Melody**: Each function generates a distinct melody theme. The function name is hashed into a melody seed, so `calculateTotal()` and `sendEmail()` will produce completely different tunes. Async functions add a spatial delay effect, and exported functions play with higher velocity.
+- **Loop → Rhythm**: `for` and `while` loops create rhythmic drum patterns. Nested loops produce denser, more complex rhythms. The deeper the nesting, the more intense the beat.
+- **Conditional → Harmony**: `if` statements trigger bright major chords, while `else` branches shift to melancholic minor chords. `switch/case` statements create chord progressions that flow through different harmonic territories.
+- **Variable → Bass Line**: Variable assignments anchor the composition with a low bass foundation. The variable name determines the pitch — short names produce punchy bass, longer names create flowing bass lines.
+- **Import → Intro**: Import statements generate ascending arpeggios with lush reverb, creating an atmospheric opening — like the overture of your code's symphony.
+- **Comment → Ambient Pad**: Comments produce soft, sustained pad sounds with long reverb tails, adding atmospheric depth — the "breathing room" in your code's music.
+- **Return → Outro**: Return statements create descending note sequences with gradual fade-out, providing a natural musical conclusion to each function's melody.
+- **Try/Catch → Dissonance**: Error handling produces intentionally dissonant, distorted sounds — `catch` blocks create harsh, attention-grabbing textures that musically represent the "something went wrong" nature of exceptions.
+- **Class → Grand Chord**: Class definitions produce full, rich chords with pad instruments, representing the structural foundation of your code architecture.
+
+#### 🌈 8 Music Styles
+Each style completely changes the instrumentation, tempo, and feel of the generated music:
+
+| Style | BPM | Instruments | Vibe |
+|-------|-----|-------------|------|
+| 🎹 **Piano** | 72 | Grand piano, piano bass, soft mallet | Pure, beautiful, classic |
+| 🎹 **Electronic** | 128 | Sawtooth synth, synth bass, electronic drums | Energetic, pulsing, club-ready |
+| 🎻 **Classical** | 90 | Piano, cello, timpani, strings | Elegant, refined, orchestral |
+| 🎷 **Jazz** | 110 | Piano, upright bass, brushes, vibraphone | Smooth, swinging, sophisticated |
+| 🌊 **Ambient** | 70 | Pad, sub-bass, percussion, atmosphere | Dreamy, spacious, meditative |
+| 👾 **Chiptune** | 140 | Square wave, triangle wave, noise | Retro 8-bit, nostalgic, playful |
+| ☕ **Lo-Fi** | 85 | Electric piano, bass, lo-fi drums, vinyl pad | Chill, warm, study-friendly |
+
+#### 📊 Real-time Visualization
+- **Spectrum Bars**: 64-bar frequency visualizer with gradient colors (indigo → pink for active sections)
+- **Particle Effects**: Musical notes float upward as particles during playback, with physics-based motion
+- **Waveform Animation**: Sine wave overlay that pulses with the music
+- **Section Highlighting**: Active code section is highlighted in the visualizer with glow effects
+- **Section Timeline**: Color-coded timeline showing the musical structure of your code
+
+#### 🔍 Code Analysis Dashboard
+The analysis panel provides real-time statistics about your code:
+- 🎵 **Functions** — Number of function definitions detected
+- 🏛️ **Classes** — Class/struct/interface definitions
+- 🔄 **Loops** — For/while loop constructs
+- 🔀 **Conditions** — If/else/switch conditionals
+- 📦 **Variables** — Variable declarations
+- 💬 **Comments** — Comment lines
+- 📏 **Depth** — Maximum nesting depth
+- 🔥 **Complexity** — Overall code complexity score
+
+The complexity score influences the musical key and scale selection — more complex code tends toward blues and dorian scales, while simpler code uses major and pentatonic scales.
+
+#### 🌐 Multi-Language Support
+Supports 6 programming languages with language-specific parsing rules:
+- **Python**: Detects `def`, `class`, `for...in`, `while`, `if/elif/else`, decorators, `try/except`
+- **JavaScript**: Detects `function`, arrow functions, `for/while`, `if/else`, `try/catch`, array methods
+- **TypeScript**: Same as JavaScript plus `interface`, `type`, and type annotations
+- **Rust**: Detects `fn`, `struct`, `enum`, `trait`, `impl`, `match`, `for/while loop`
+- **Go**: Detects `func`, `struct`, `interface`, `for`, `if/else`, `switch`, `defer`
+- **C**: Detects function definitions, `struct`, `enum`, `for/while`, `if/else`, `switch`, `#include`
+
+Each language also influences the musical key — Python defaults to D, JavaScript to E, Rust to C, Go to G, C to A.
+
+#### 🎵 Musical Intelligence
+- **Auto Key Selection**: The key is automatically chosen based on the programming language and code characteristics
+- **Auto Scale Selection**: Simple code → major/pentatonic, complex code → blues/dorian, many conditionals → minor
+- **Adaptive BPM**: Tempo adjusts based on code density and nesting depth — denser code plays faster
+- **Harmonic Constraints**: All notes are constrained to the selected scale, ensuring the music always sounds pleasant
+- **7 Scale Types**: Major, Minor, Pentatonic, Blues, Dorian, Mixolydian, Japanese
+- **Chord Progression Engine**: Classic chord progressions (I-IV-V-I etc.), melody follows chord movement, no more abrupt transitions
+
+#### 📤 One-click Share
+- **Web Share API**: On supported browsers, share directly to Twitter, Facebook, etc.
+- **Clipboard Copy**: Copy a formatted share text with your code's musical stats
+- **Share Card**: Includes the key, scale, BPM, and style of your code's music
+
+#### 🎯 Zero Backend Required
+The entire application runs in your browser — no server, no API keys, no data uploads. Your code never leaves your machine. Built with:
+- **Tone.js** for Web Audio API synthesis
+- **Canvas 2D** for real-time visualization
+- **Custom parser** for code analysis (no heavy AST dependencies)
+
+### 🎵 Complete Mapping Rules
+
+| Code Element | Music Element | Instrument | Detail |
+|-------------|---------------|------------|--------|
+| `function` | 🎵 Melody | Style-dependent | Name → melody seed (hash), async → delay, exported → louder, params → chord complexity |
+| `class` | 🏛️ Grand Chord | Pad + Lead | 4-note chord (7th) + high melody accent |
+| `for/while` | 🔄 Rhythm | Drums/Percussion | 4-beat pattern, kick + hi-hat, nested → extra accent on beat 3 |
+| `if/else` | 🔀 Harmony | Pad | if → major triad (I-III-V), else → minor triad (i-iii-v) |
+| `variable` | 📦 Bass | Bass instrument | Name hash → scale degree, depth → octave |
+| `import` | 📥 Intro Arpeggio | Pad + Reverb | 3-note ascending arpeggio, heavy reverb |
+| `comment` | 💬 Ambient Pad | Pad + Reverb | Sustained note, very soft, long reverb tail |
+| `return` | ↩️ Fade-out | Lead instrument | 3-note descending sequence, decreasing velocity |
+| `decorator` | ✨ Accent | Pad + Reverb | Same as import — arpeggiated accent |
+| `try/catch` | 🛡️ Dissonance | Lead + Distortion | try → stable note, catch → dissonant + distorted |
+| `assignment` | 📝 Note | Style-dependent | Generic note at current depth's octave |
+| `string/number` | 🔤🔢 Note | Style-dependent | Literal values mapped to scale degrees |
+
+### 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/43984927/CodeBeats.git
+cd CodeBeats
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### 🎮 How to Use
+
+1. **Paste your code** in the editor (or click language buttons for sample code)
+2. **Choose a music style** — Piano, Electronic, Classical, Jazz, Ambient, Chiptune, or Lo-Fi
+3. **Click ▶ Play** — Hear your code transform into music
+4. **Watch the visualizer** — Spectrum bars and particles dance with the music
+5. **Click 🔍 Analyze** — See detailed code statistics
+6. **Click 📤 Share** — Share your code music with the world
+
+### 🏗️ Architecture
+
+```
+CodeBeats/
+├── src/
+│   ├── core/                    # Core Engine
+│   │   ├── parser/index.ts      # Code Parser (6 languages, regex-based AST)
+│   │   ├── mapper/index.ts      # Code → Music Mapper (7 scales, 8 styles, chord progression engine)
+│   │   └── audio/index.ts       # Tone.js Synthesizer (10+ instruments)
+│   ├── components/
+│   │   └── Visualizer.tsx       # Canvas Audio Visualization (spectrum + particles)
+│   ├── pages/
+│   │   └── Home.tsx             # Main Page (editor + controls + info panels)
+│   └── App.tsx                  # Root Component
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
+```
+
+### 🛠️ Tech Stack
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **Audio**: Tone.js (Web Audio API)
+- **Visualization**: Canvas 2D
+- **Code Parsing**: Custom regex-based AST analyzer
+- **Deployment**: Vercel / GitHub Pages
+
+### 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+### 👤 Author
 
 **chanzs** - [GitHub](https://github.com/chanzs)
 

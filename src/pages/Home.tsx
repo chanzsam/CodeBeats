@@ -393,9 +393,9 @@ export default function Home() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
-              CodeBeats
+              CodeBeats <span style={{ fontSize: isMobile ? 13 : 16, fontWeight: 400, opacity: 0.7 }}>代码节拍</span>
             </h1>
-            <p style={{ margin: 0, fontSize: isMobile ? 10 : 12, color: '#94a3b8' }}>Hear what your code sounds like</p>
+            <p style={{ margin: 0, fontSize: isMobile ? 10 : 12, color: '#94a3b8' }}>听听你的代码什么声音</p>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
