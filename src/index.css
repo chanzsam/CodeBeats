@@ -43,3 +43,14 @@ textarea::-webkit-scrollbar-thumb {
   background: rgba(99, 102, 241, 0.2);
   border-radius: 3px;
 }
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+}

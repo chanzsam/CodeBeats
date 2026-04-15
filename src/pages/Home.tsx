@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import type { MusicStyle, MusicResult, ParseResult } from '../core/index'
 import { parseCode, mapCodeToMusic } from '../core/index'
 import Visualizer from '../components/Visualizer'
@@ -216,7 +216,19 @@ const STYLES: { value: MusicStyle; label: string; emoji: string }[] = [
   { value: 'lofi', label: 'Lo-Fi', emoji: '☕' },
 ]
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 export default function Home() {
+  const isMobile = useIsMobile()
   const [code, setCode] = useState(SAMPLE_CODES.python)
   const [language, setLanguage] = useState('python')
   const [style, setStyle] = useState<MusicStyle>('piano')
@@ -357,7 +369,7 @@ export default function Home() {
     }}>
       {/* Header */}
       <header style={{
-        padding: '16px 24px',
+        padding: isMobile ? '12px 16px' : '16px 24px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -367,13 +379,15 @@ export default function Home() {
         position: 'sticky',
         top: 0,
         zIndex: 100,
+        flexWrap: isMobile ? 'wrap' : 'nowrap',
+        gap: 8,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 28 }}>🎵</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 12 }}>
+          <span style={{ fontSize: isMobile ? 22 : 28 }}>🎵</span>
           <div>
             <h1 style={{
               margin: 0,
-              fontSize: 22,
+              fontSize: isMobile ? 18 : 22,
               fontWeight: 700,
               background: 'linear-gradient(135deg, #6366f1, #ec4899)',
               WebkitBackgroundClip: 'text',
@@ -381,22 +395,22 @@ export default function Home() {
             }}>
               CodeBeats
             </h1>
-            <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>Hear what your code sounds like</p>
+            <p style={{ margin: 0, fontSize: isMobile ? 10 : 12, color: '#94a3b8' }}>Hear what your code sounds like</p>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {['python', 'javascript', 'rust', 'c'].map(lang => (
             <button
               key={lang}
               onClick={() => handleSampleCode(lang)}
               style={{
-                padding: '6px 14px',
+                padding: isMobile ? '4px 10px' : '6px 14px',
                 border: language === lang ? '1px solid #6366f1' : '1px solid rgba(99, 102, 241, 0.3)',
                 borderRadius: 20,
                 background: language === lang ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
                 color: language === lang ? '#a5b4fc' : '#94a3b8',
                 cursor: 'pointer',
-                fontSize: 13,
+                fontSize: isMobile ? 11 : 13,
                 fontFamily: 'monospace',
                 transition: 'all 0.2s',
               }}
@@ -409,15 +423,15 @@ export default function Home() {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 16,
-        padding: 16,
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap: isMobile ? 10 : 16,
+        padding: isMobile ? 10 : 16,
         maxWidth: 1400,
         margin: '0 auto',
-        minHeight: 'calc(100vh - 70px)',
+        minHeight: isMobile ? 'auto' : 'calc(100vh - 70px)',
       }}>
         {/* Left: Code Editor */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 'calc(100vh - 100px)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 8 : 12, maxHeight: isMobile ? 'none' : 'calc(100vh - 100px)', overflow: 'hidden' }}>
           <div style={{
             background: 'rgba(15, 15, 35, 0.8)',
             borderRadius: 12,
@@ -454,13 +468,13 @@ export default function Home() {
                 border: 'none',
                 color: '#e2e8f0',
                 fontFamily: '"Fira Code", "Cascadia Code", "JetBrains Mono", monospace',
-                fontSize: 13,
+                fontSize: isMobile ? 11 : 13,
                 lineHeight: 1.6,
-                padding: 16,
+                padding: isMobile ? 10 : 16,
                 resize: 'none',
                 outline: 'none',
                 tabSize: 2,
-                maxHeight: '50vh',
+                maxHeight: isMobile ? '35vh' : '50vh',
                 overflowY: 'auto',
               }}
             />
@@ -471,24 +485,24 @@ export default function Home() {
             background: 'rgba(15, 15, 35, 0.8)',
             borderRadius: 12,
             border: '1px solid rgba(99, 102, 241, 0.15)',
-            padding: 12,
+            padding: isMobile ? 8 : 12,
           }}>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6, fontWeight: 600 }}>
               MUSIC STYLE
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
               {STYLES.map(s => (
                 <button
                   key={s.value}
                   onClick={() => handleStyleChange(s.value)}
                   style={{
-                    padding: '6px 12px',
+                    padding: isMobile ? '4px 8px' : '6px 12px',
                     border: style === s.value ? '1px solid #6366f1' : '1px solid rgba(99, 102, 241, 0.2)',
                     borderRadius: 8,
                     background: style === s.value ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255,255,255,0.03)',
                     color: style === s.value ? '#a5b4fc' : '#94a3b8',
                     cursor: 'pointer',
-                    fontSize: 12,
+                    fontSize: isMobile ? 10 : 12,
                     transition: 'all 0.2s',
                   }}
                 >
@@ -503,15 +517,16 @@ export default function Home() {
             background: 'rgba(15, 15, 35, 0.8)',
             borderRadius: 12,
             border: '1px solid rgba(99, 102, 241, 0.15)',
-            padding: 16,
+            padding: isMobile ? 10 : 16,
             display: 'flex',
             alignItems: 'center',
-            gap: 12,
+            gap: isMobile ? 8 : 12,
+            flexWrap: isMobile ? 'wrap' : 'nowrap',
           }}>
             <button
               onClick={handlePlay}
               style={{
-                padding: '10px 24px',
+                padding: isMobile ? '8px 18px' : '10px 24px',
                 border: 'none',
                 borderRadius: 8,
                 background: isPlaying
@@ -519,10 +534,10 @@ export default function Home() {
                   : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                 color: 'white',
                 cursor: 'pointer',
-                fontSize: 14,
+                fontSize: isMobile ? 13 : 14,
                 fontWeight: 600,
                 transition: 'all 0.2s',
-                minWidth: 100,
+                minWidth: isMobile ? 80 : 100,
               }}
             >
               {isPlaying ? '⏹ Stop' : '▶ Play'}
@@ -531,21 +546,21 @@ export default function Home() {
             <button
               onClick={handleAnalyze}
               style={{
-                padding: '10px 20px',
+                padding: isMobile ? '8px 14px' : '10px 20px',
                 border: '1px solid rgba(99, 102, 241, 0.3)',
                 borderRadius: 8,
                 background: 'rgba(99, 102, 241, 0.1)',
                 color: '#a5b4fc',
                 cursor: 'pointer',
-                fontSize: 14,
+                fontSize: isMobile ? 12 : 14,
                 transition: 'all 0.2s',
               }}
             >
               🔍 Analyze
             </button>
 
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 16 }}>🔊</span>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 8, minWidth: isMobile ? '100%' : 'auto' }}>
+              <span style={{ fontSize: 14 }}>🔊</span>
               <input
                 type="range"
                 min="0"
@@ -561,13 +576,13 @@ export default function Home() {
               <button
                 onClick={handleShare}
                 style={{
-                  padding: '10px 16px',
+                  padding: isMobile ? '8px 12px' : '10px 16px',
                   border: '1px solid rgba(99, 102, 241, 0.3)',
                   borderRadius: 8,
                   background: 'rgba(99, 102, 241, 0.1)',
                   color: '#a5b4fc',
                   cursor: 'pointer',
-                  fontSize: 14,
+                  fontSize: isMobile ? 12 : 14,
                 }}
               >
                 📤 Share
@@ -577,7 +592,7 @@ export default function Home() {
         </div>
 
         {/* Right: Visualizer + Info */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 8 : 12 }}>
           {/* Visualizer */}
           <div style={{
             background: 'rgba(15, 15, 35, 0.8)',
@@ -585,7 +600,7 @@ export default function Home() {
             border: '1px solid rgba(99, 102, 241, 0.15)',
             overflow: 'hidden',
             flex: 1,
-            minHeight: 300,
+            minHeight: isMobile ? 200 : 300,
           }}>
             <Visualizer
               music={music}
@@ -601,15 +616,15 @@ export default function Home() {
               background: 'rgba(15, 15, 35, 0.8)',
               borderRadius: 12,
               border: '1px solid rgba(99, 102, 241, 0.15)',
-              padding: 16,
+              padding: isMobile ? 10 : 16,
             }}>
-              <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 10, fontWeight: 600 }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>
                 CODE ANALYSIS
               </div>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: 8,
+                gridTemplateColumns: isMobile ? 'repeat(4, 1fr)' : 'repeat(4, 1fr)',
+                gap: isMobile ? 4 : 8,
               }}>
                 {[
                   { label: 'Functions', value: parseResult.stats.functions, emoji: '🎵' },
@@ -624,12 +639,12 @@ export default function Home() {
                   <div key={stat.label} style={{
                     background: 'rgba(99, 102, 241, 0.08)',
                     borderRadius: 8,
-                    padding: '8px 10px',
+                    padding: isMobile ? '6px 4px' : '8px 10px',
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: 18 }}>{stat.emoji}</div>
-                    <div style={{ fontSize: 18, fontWeight: 700, color: '#e2e8f0' }}>{stat.value}</div>
-                    <div style={{ fontSize: 10, color: '#94a3b8' }}>{stat.label}</div>
+                    <div style={{ fontSize: isMobile ? 14 : 18 }}>{stat.emoji}</div>
+                    <div style={{ fontSize: isMobile ? 14 : 18, fontWeight: 700, color: '#e2e8f0' }}>{stat.value}</div>
+                    <div style={{ fontSize: isMobile ? 8 : 10, color: '#94a3b8' }}>{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -642,12 +657,12 @@ export default function Home() {
               background: 'rgba(15, 15, 35, 0.8)',
               borderRadius: 12,
               border: '1px solid rgba(99, 102, 241, 0.15)',
-              padding: 16,
+              padding: isMobile ? 10 : 16,
             }}>
-              <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 10, fontWeight: 600 }}>
+              <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 8, fontWeight: 600 }}>
                 MUSIC INFO
               </div>
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: isMobile ? 8 : 16, flexWrap: 'wrap', fontSize: isMobile ? 11 : 13 }}>
                 <span style={{ color: '#a5b4fc', fontFamily: 'monospace' }}>
                   🎼 {music.key} {music.scale}
                 </span>
@@ -667,7 +682,7 @@ export default function Home() {
 
               {/* Section Timeline */}
               <div style={{
-                marginTop: 12,
+                marginTop: isMobile ? 8 : 12,
                 display: 'flex',
                 gap: 2,
                 overflow: 'hidden',
@@ -680,7 +695,7 @@ export default function Home() {
                     onClick={() => setActiveSectionIndex(idx)}
                     style={{
                       flex: section.notes.length || 1,
-                      height: 24,
+                      height: isMobile ? 18 : 24,
                       background: idx === activeSectionIndex
                         ? 'linear-gradient(135deg, #6366f1, #ec4899)'
                         : 'rgba(99, 102, 241, 0.2)',
