@@ -254,6 +254,20 @@ class Synthesizer {
     Tone.Destination.volume.value = Tone.gainToDb(Math.max(0, Math.min(1, volume)))
   }
 
+  async switchStyle(music: MusicResult): Promise<void> {
+    const wasPlaying = this.isPlaying
+    const currentPosition = Tone.getTransport().seconds
+
+    this.stop()
+
+    if (wasPlaying) {
+      await this.play(music)
+      if (currentPosition > 0 && currentPosition < music.totalDuration) {
+        Tone.getTransport().seconds = Math.min(currentPosition, music.totalDuration * 0.8)
+      }
+    }
+  }
+
   getCurrentTime(): number {
     if (!this.isPlaying) return 0
     return Tone.getTransport().seconds

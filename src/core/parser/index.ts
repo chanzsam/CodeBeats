@@ -127,9 +127,22 @@ const PATTERNS: Record<string, LanguagePattern> = {
     decorator: [/^@\w+/],
     trycatch: [/^try\s*\{/, /^catch\s*\(/, /^finally\s*\{/],
   },
+  c: {
+    function: [/^(?:static\s+|inline\s+)*(?:void|int|float|double|char|long|short|unsigned|signed|size_t|bool|auto)\s*\*?\s*(\w+)\s*\(/, /^(\w+)\s*\(/],
+    class: [/^(?:typedef\s+)?struct\s+(\w+)/, /^(?:typedef\s+)?enum\s+(\w+)/, /^typedef\s+.*\s+(\w+)\s*;/],
+    loop: [/^for\s*\(/, /^while\s*\(/, /^do\s*\{/],
+    conditional: [/^if\s*\(/, /^else\s+/, /^else\s*if\s*\(/, /^switch\s*\(/, /^case\s+/, /^default:/],
+    variable: [/^(?:void|int|float|double|char|long|short|unsigned|signed|size_t|bool|auto|const|static|extern)\s+.*\s+(\w+)\s*(?:=|;)/, /^(\w+)\s*=/],
+    import: [/^#include\s*[<"]/],
+    comment: [/^\/\//, /^\/\*/, /^\*/, /^#/],
+    return: [/^return\s*/],
+    decorator: [/^#define\s+/, /^#ifdef\s+/, /^#ifndef\s+/, /^#pragma\s+/],
+    trycatch: [],
+  },
 }
 
 function detectLanguage(code: string): string {
+  if (/^#include\s*[<"]/m.test(code) && /^(?:void|int|float|double|char|long|short)\s+\w+\s*\(/m.test(code)) return 'c'
   if (/^import\s+/m.test(code) && /^func\s+/m.test(code)) return 'go'
   if (/^(?:fn|let\s+mut|pub\s+fn)/m.test(code)) return 'rust'
   if (/^def\s+/m.test(code) || /^from\s+[\w.]+\s+import/m.test(code)) return 'python'

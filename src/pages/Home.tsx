@@ -135,6 +135,75 @@ fn fibonacci(n: u32) -> u64 {
     }
     a
 }`,
+  c: `#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* create_node(int data) {
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+typedef struct {
+    Node* head;
+    int size;
+} LinkedList;
+
+void list_append(LinkedList* list, int data) {
+    Node* node = create_node(data);
+    if (list->head == NULL) {
+        list->head = node;
+    } else {
+        Node* current = list->head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = node;
+    }
+    list->size++;
+}
+
+int list_get(LinkedList* list, int index) {
+    if (index < 0 || index >= list->size) {
+        return -1;
+    }
+    Node* current = list->head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+    return current->data;
+}
+
+int fibonacci(int n) {
+    if (n <= 1) return n;
+    int a = 0, b = 1;
+    for (int i = 2; i <= n; i++) {
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+}
+
+int main() {
+    LinkedList list = {NULL, 0};
+    for (int i = 0; i < 10; i++) {
+        list_append(&list, fibonacci(i));
+    }
+    for (int i = 0; i < list.size; i++) {
+        printf("fib(%d) = %d\\n", i, list_get(&list, i));
+    }
+    return 0;
+}`,
 }
 
 const STYLES: { value: MusicStyle; label: string; emoji: string }[] = [
@@ -222,6 +291,36 @@ export default function Home() {
     setActiveSectionIndex(-1)
   }, [])
 
+  const handleStyleChange = useCallback(async (newStyle: MusicStyle) => {
+    setStyle(newStyle)
+    if (isPlaying && parseResult) {
+      try {
+        const newMusic = mapCodeToMusic(parseResult, newStyle)
+        setMusic(newMusic)
+        const { getSynthesizer } = await import('../core/audio/index')
+        const synth = getSynthesizer({
+          onNotePlay: (note, index) => {
+            setActiveNoteIndex(index)
+          },
+          onSectionChange: (sectionIndex, label) => {
+            setActiveSectionIndex(sectionIndex)
+          },
+          onPlaybackEnd: () => {
+            setIsPlaying(false)
+            setActiveNoteIndex(-1)
+            setActiveSectionIndex(-1)
+          },
+        })
+        synth.setVolume(volume)
+        await synth.switchStyle(newMusic)
+      } catch (e: any) {
+        setError(e.message || 'Style switch failed')
+      }
+    } else {
+      setMusic(null)
+    }
+  }, [isPlaying, parseResult, volume])
+
   const handleSampleCode = (lang: string) => {
     setLanguage(lang)
     setCode(SAMPLE_CODES[lang] || SAMPLE_CODES.python)
@@ -284,8 +383,8 @@ export default function Home() {
             <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>Hear what your code sounds like</p>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {['python', 'javascript', 'rust'].map(lang => (
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {['python', 'javascript', 'rust', 'c'].map(lang => (
             <button
               key={lang}
               onClick={() => handleSampleCode(lang)}
@@ -317,7 +416,7 @@ export default function Home() {
         minHeight: 'calc(100vh - 70px)',
       }}>
         {/* Left: Code Editor */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 'calc(100vh - 100px)', overflow: 'hidden' }}>
           <div style={{
             background: 'rgba(15, 15, 35, 0.8)',
             borderRadius: 12,
@@ -326,6 +425,7 @@ export default function Home() {
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
+            minHeight: 0,
           }}>
             <div style={{
               padding: '10px 16px',
@@ -359,6 +459,8 @@ export default function Home() {
                 resize: 'none',
                 outline: 'none',
                 tabSize: 2,
+                maxHeight: '50vh',
+                overflowY: 'auto',
               }}
             />
           </div>
@@ -377,7 +479,7 @@ export default function Home() {
               {STYLES.map(s => (
                 <button
                   key={s.value}
-                  onClick={() => { setStyle(s.value); setMusic(null) }}
+                  onClick={() => handleStyleChange(s.value)}
                   style={{
                     padding: '6px 12px',
                     border: style === s.value ? '1px solid #6366f1' : '1px solid rgba(99, 102, 241, 0.2)',
