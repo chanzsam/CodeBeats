@@ -4,13 +4,13 @@
 
 **听听你的代码是什么声音 / Hear What Your Code Sounds Like**
 
-[![GitHub Stars](https://img.shields.io/github/stars/43984927/CodeBeats?style=social)](https://github.com/43984927/CodeBeats)
+[![GitHub Stars](https://img.shields.io/github/stars/chanzsam/CodeBeats?style=social)](https://github.com/chanzsam/CodeBeats)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
-[![GitHub Pages](https://img.shields.io/badge/Demo-Live%20Online-success.svg)](https://43984927.github.io/CodeBeats/)
+[![GitHub Pages](https://img.shields.io/badge/Demo-Live%20Online-success.svg)](https://chanzsam.github.io/CodeBeats/)
 
-🚀 **[在线体验 → https://43984927.github.io/CodeBeats/](https://43984927.github.io/CodeBeats/)**
+🚀 **[在线体验 → https://chanzsam.github.io/CodeBeats/](https://chanzsam.github.io/CodeBeats/)**
 
 将你的源代码转化为音乐。每个函数变成一段旋律，每个循环创造一种节奏，每个条件判断触发一次和弦变化。谁说程序员只会敲代码？一起来听听程序猿的music吧 🐒🎸
 
@@ -129,7 +129,7 @@ Transform your source code into music. Every function becomes a melody, every lo
 
 ```bash
 # 克隆仓库
-git clone https://github.com/43984927/CodeBeats.git
+git clone https://github.com/chanzsam/CodeBeats.git
 cd CodeBeats
 
 # 安装依赖
@@ -303,7 +303,7 @@ The entire application runs in your browser — no server, no API keys, no data 
 
 ```bash
 # Clone the repository
-git clone https://github.com/43984927/CodeBeats.git
+git clone https://github.com/chanzsam/CodeBeats.git
 cd CodeBeats
 
 # Install dependencies
@@ -378,6 +378,6 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 **Made with 🎵 and ❤️**
 
-[⭐ Star us on GitHub](https://github.com/43984927/CodeBeats) · [🐛 Report Bug](https://github.com/43984927/CodeBeats/issues) · [💡 Request Feature](https://github.com/43984927/CodeBeats/issues)
+[⭐ Star us on GitHub](https://github.com/chanzsam/CodeBeats) · [🐛 Report Bug](https://github.com/chanzsam/CodeBeats/issues) · [💡 Request Feature](https://github.com/chanzsam/CodeBeats/issues)
 
 </div>

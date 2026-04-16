@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && cd dist && git init && git add -A && git commit -m 'deploy' && git branch -M gh-pages && git remote add origin https://github.com/43984927/CodeBeats.git && git push -f origin gh-pages"
+    "deploy": "npm run build && cd dist && git init && git add -A && git commit -m 'deploy' && git branch -M gh-pages && git remote add origin https://github.com/chanzsam/CodeBeats.git && git push -f origin gh-pages"
   },
   "dependencies": {
     "react": "^18.3.1",
