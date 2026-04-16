@@ -196,7 +196,7 @@ CodeBeats/
 
 ### 👤 作者
 
-**chanzs** - [GitHub](https://github.com/chanzs)
+**chanzsam** - [GitHub](https://github.com/chanzsam)
 
 ---
 
@@ -370,7 +370,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ### 👤 Author
 
-**chanzs** - [GitHub](https://github.com/chanzs)
+**chanzsam** - [GitHub](https://github.com/chanzsam)
 
 ---
 
